@@ -664,6 +664,7 @@ h4 {
 /* COOKIE MESSAGE */
 .cookie-message {
   display: flex;
+
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
@@ -671,4 +672,9 @@ h4 {
   color: #bbb;
   font-size: 1.5rem;
   font-weight: 400;
+}
+
+.cookie-message .btn {
+  padding: 0.5rem 3.5rem;
+  margin: 1rem;
 }
