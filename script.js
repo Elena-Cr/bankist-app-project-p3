@@ -29,6 +29,14 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+//Smooth Scroling
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
@@ -81,10 +89,10 @@ console.log(message.style.color);
 console.log(getComputedStyle(message).color);
 console.log(getComputedStyle(message).height);
 
-message.style.height =
-  Number.parseFloat(getComputedStyle(message).height, 10) + 40 + 'px';
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height, 10) + 40 + 'px';
 
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+//document.documentElement.style.setProperty('--color-primary', 'orangered');
 
 //ATTRIBUTES
 const logo = document.querySelector('.nav__logo');
@@ -115,3 +123,32 @@ logo.classList.contains('c');
 
 //Don't use since it will overight
 //logo.className='c'
+
+//PAGE DIRECTIONS
+// const s1coords = section1.getBoundingClientRect();
+// console.log(s1coords);
+
+// console.log(e.target.getBoundingClientRect());
+
+// console.log(
+//   'Current scrol (X/Y)',
+//   window.pageXOffset,
+//   window.AbortSignalpageYOffset
+// );
+// console.log(
+//   'Height/Weight viewport',
+//   document.documentElement.clientHeight,
+//   document.documentElement.clientWidth
+// );
+
+//Scrolling
+// window.scrollTo(
+//   s1coords.left + window.pageXOffset,
+//   s1coords.top + window.pageYOffset
+// );
+
+// window.scrollTo({
+//   left: s1coords.left + window.pageXOffset,
+//   top: s1coords.top + window.pageYOffset,
+//   behavior: 'smooth',
+// });
