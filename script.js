@@ -80,6 +80,7 @@ document
     // message.parentElement.removeChild(message);
   });
 
+///////////////////////////////////////////////////////////////
 //STYLES
 message.style.backgroundColor = '#37383d';
 //message.style.width = '100%';
@@ -124,6 +125,7 @@ logo.classList.contains('c');
 //Don't use since it will overight
 //logo.className='c'
 
+///////////////////////////////////////////////////////////////
 //PAGE DIRECTIONS
 // const s1coords = section1.getBoundingClientRect();
 // console.log(s1coords);
@@ -152,3 +154,18 @@ logo.classList.contains('c');
 //   top: s1coords.top + window.pageYOffset,
 //   behavior: 'smooth',
 // });
+
+const h1 = document.querySelector('h1');
+//listen for event once
+const alertH1 = function (e) {
+  alert('addEventListener:Great!You are reading the heading :D');
+
+  h1.removeEventListener('mouseenter', alertH1);
+};
+
+//able to add more functions on the same event
+h1.addEventListener('mouseenter', alertH1);
+
+// h1.onmouseenter = function (e) {
+//   alert('addEventListener:Great!You are reading the heading :D');
+// };
