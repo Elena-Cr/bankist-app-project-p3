@@ -155,17 +155,43 @@ logo.classList.contains('c');
 //   behavior: 'smooth',
 // });
 
-const h1 = document.querySelector('h1');
-//listen for event once
-const alertH1 = function (e) {
-  alert('addEventListener:Great!You are reading the heading :D');
+// const h1 = document.querySelector('h1');
+// //listen for event once
+// const alertH1 = function (e) {
+//   alert('addEventListener:Great!You are reading the heading :D');
 
-  h1.removeEventListener('mouseenter', alertH1);
-};
+//   h1.removeEventListener('mouseenter', alertH1);
+// };
 
-//able to add more functions on the same event
-h1.addEventListener('mouseenter', alertH1);
+// //able to add more functions on the same event
+// h1.addEventListener('mouseenter', alertH1);
 
 // h1.onmouseenter = function (e) {
 //   alert('addEventListener:Great!You are reading the heading :D');
 // };
+//rgb(255,255,255)
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+const randomColour = () =>
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  e.preventDefault();
+  this.style.backgroundColor = randomColour();
+  // e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColour();
+
+  //Stop propagation
+  // e.stopPropagation();
+});
+
+document.querySelector('.nav').addEventListener(
+  'click',
+  function (e) {
+    this.style.backgroundColor = randomColour();
+  },
+  false
+);
