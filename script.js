@@ -47,11 +47,15 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
-////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-//document methods
-console.log(document.documentElement);
+
+//Tabvbed component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer =
+  ////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  //document methods
+  console.log(document.documentElement);
 console.log(document.head);
 console.log(document.body);
 
@@ -205,7 +209,7 @@ logo.classList.contains('c');
 //   },
 //   false
 // );
-
+/*
 const h1 = document.querySelector('h1');
 
 //Going downwards : child elements
@@ -234,3 +238,4 @@ console.log(h1.parentElement.children);
 [...h1.parentElement.children].forEach(function (el) {
   if (el != h1) el.style.transform = 'scale(0.5)';
 });
+*/
