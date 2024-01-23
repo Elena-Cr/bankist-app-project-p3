@@ -16,7 +16,11 @@ const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 const allSections = document.querySelectorAll('.section');
 const allFeaturesImg = document.querySelectorAll('img[data-src]');
-
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+const dotContainer = document.querySelector('.dots');
 const openModal = function () {
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
@@ -60,7 +64,6 @@ btnScrollTo.addEventListener('click', function (e) {
 // tabs.forEach(t => t.addEventListener('click', () => console.log('TAB')));
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
-  console.log(clicked);
 
   //Guard clause
   if (!clicked) return;
@@ -119,7 +122,6 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 const navHeight = nav.getBoundingClientRect().height;
 const stickyNav = function (entries) {
   const [entry] = entries;
-  console.log(entry);
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
 };
@@ -145,7 +147,7 @@ const sectionObserver = new IntersectionObserver(reavealSection, {
 });
 
 allSections.forEach(function (section) {
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
   sectionObserver.observe(section);
 });
 
@@ -170,18 +172,75 @@ allFeaturesImg.forEach(function (featureImg) {
   imgObserver.observe(featureImg);
 });
 
-//select Elements
+//SLIDER
+let curSlide = 0;
+let maxSlide = slides.length;
 
-//this creates a NodeList which doesn't update automatically
+const createDots = function () {
+  slides.forEach(function (_, i) {
+    dotContainer.insertAdjacentHTML(
+      'beforeend',
+      `<button class="dots__dot" data-slide="${i}"></button>`
+    );
+  });
+};
+createDots();
+const activateDots = function (slide) {
+  document
+    .querySelectorAll('.dots__dot')
+    .forEach(dot => dot.classList.remove('dots__dot--active'));
 
-console.log(allSections);
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+};
+
+dotContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+    const { slide } = e.target.dataset;
+    goToSlide(slide);
+    activateDots(slide);
+  }
+});
+
+const goToSlide = function (slide) {
+  slides.forEach((s, i) => {
+    if (i > -1 && 1 < 5) {
+      (s.style.transform = `translateX(${(i - slide) * 100}%)`), i++;
+    }
+  });
+};
+goToSlide(0);
+goToSlide(curSlide);
+
+const nextSlide = function () {
+  if (curSlide === maxSlide - 1) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+  goToSlide(curSlide);
+};
+const prevSlide = function () {
+  if (curSlide === 0) {
+    curSlide = maxSlide - 1;
+  } else {
+    curSlide--;
+  }
+  goToSlide(curSlide);
+};
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowLeft') prevSlide();
+  if (e.key === 'ArrowRight') nextSlide();
+});
 
 //get Elements by ...
 document.getElementById('section--1');
 //this creates a live HTMLColection which updates automatically
 const allButtons = document.getElementsByTagName('button');
-console.log(allButtons);
-console.log(document.getElementsByClassName('btn'));
 
 //create and insert Elements
 //.insertAdjacentHTML
@@ -209,12 +268,6 @@ document
 //STYLES
 message.style.backgroundColor = '#37383d';
 //message.style.width = '100%';
-
-console.log(message.style.color);
-
-console.log(getComputedStyle(message).color);
-console.log(getComputedStyle(message).height);
-
 // message.style.height =
 //   Number.parseFloat(getComputedStyle(message).height, 10) + 40 + 'px';
 
@@ -222,24 +275,10 @@ console.log(getComputedStyle(message).height);
 
 //ATTRIBUTES
 const logo = document.querySelector('.nav__logo');
-console.log(logo.alt);
-console.log(logo.src);
-console.log(logo.className);
 
 logo.alt = 'Beautiful minimalist logo';
-//Non-standard
-console.log(logo.designer);
-console.log(logo.getAttribute('designer'));
-logo.setAttribute('company', 'Bankist');
-
-console.log(logo.getAttribute('src'));
 
 const link = document.querySelector('.nav__link--btn');
-console.log(link.href);
-console.log(link.getAttribute('href'));
-
-//Data attributes
-console.log(logo.dataset.versionNumber);
 
 //Classes
 // logo.classList.add('c', 'd');
