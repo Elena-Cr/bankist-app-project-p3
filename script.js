@@ -14,6 +14,7 @@ const header = document.querySelector('.header');
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
+const allSections = document.querySelectorAll('.section');
 
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -100,7 +101,7 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 //   else nav.classList.remove('sticky');
 // });
 
-// //Sticky NAVIGATION : Intersection Observer API
+//Sticky NAVIGATION : Intersection Observer API
 // const obsCallback = function (entries, observer) {
 //   entries.forEach(entry => {
 //     console.log(entry);
@@ -128,6 +129,26 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 });
 headerObserver.observe(header);
 
+//Reveal SECTIONS
+
+const reavealSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(reavealSection, {
+  rot: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(function (section) {
+  section.classList.add('section--hidden');
+  sectionObserver.observe(section);
+});
+
 console.log(document.documentElement);
 console.log(document.head);
 console.log(document.body);
@@ -135,7 +156,7 @@ console.log(document.body);
 //select Elements
 
 //this creates a NodeList which doesn't update automatically
-const allSections = document.querySelectorAll('.section');
+
 console.log(allSections);
 
 //get Elements by ...
