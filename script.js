@@ -15,6 +15,7 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 const allSections = document.querySelectorAll('.section');
+const allFeaturesImg = document.querySelectorAll('img[data-src]');
 
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -133,14 +134,13 @@ headerObserver.observe(header);
 
 const reavealSection = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
   if (!entry.isIntersecting) return;
   entry.target.classList.remove('section--hidden');
   observer.unobserve(entry.target);
 };
 
 const sectionObserver = new IntersectionObserver(reavealSection, {
-  rot: null,
+  root: null,
   threshold: 0.15,
 });
 
@@ -149,9 +149,26 @@ allSections.forEach(function (section) {
   sectionObserver.observe(section);
 });
 
-console.log(document.documentElement);
-console.log(document.head);
-console.log(document.body);
+//Lazy LOADING images
+const reavealImg = function (entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+};
+const imgObserver = new IntersectionObserver(reavealImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px',
+});
+
+allFeaturesImg.forEach(function (featureImg) {
+  imgObserver.observe(featureImg);
+});
 
 //select Elements
 
@@ -225,10 +242,10 @@ console.log(link.getAttribute('href'));
 console.log(logo.dataset.versionNumber);
 
 //Classes
-logo.classList.add('c', 'd');
-logo.classList.remove('c', 'd');
-logo.classList.toggle('c');
-logo.classList.contains('c');
+// logo.classList.add('c', 'd');
+// logo.classList.remove('c', 'd');
+// logo.classList.toggle('c');
+// logo.classList.contains('c');
 
 //Don't use since it will overight
 //logo.className='c'
