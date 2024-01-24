@@ -184,7 +184,7 @@ const createDots = function () {
     );
   });
 };
-createDots();
+
 const activateDots = function (slide) {
   document
     .querySelectorAll('.dots__dot')
@@ -195,6 +195,21 @@ const activateDots = function (slide) {
     .classList.add('dots__dot--active');
 };
 
+const goToSlide = function (slide) {
+  slides.forEach((s, i) => {
+    if (i > -1 && 1 < 5) {
+      (s.style.transform = `translateX(${(i - slide) * 100}%)`), i++;
+    }
+  });
+};
+
+const init = function () {
+  createDots();
+  goToSlide(0);
+  activateDots(0);
+};
+
+init();
 dotContainer.addEventListener('click', function (e) {
   if (e.target.classList.contains('dots__dot')) {
     const { slide } = e.target.dataset;
@@ -203,16 +218,6 @@ dotContainer.addEventListener('click', function (e) {
   }
 });
 
-const goToSlide = function (slide) {
-  slides.forEach((s, i) => {
-    if (i > -1 && 1 < 5) {
-      (s.style.transform = `translateX(${(i - slide) * 100}%)`), i++;
-    }
-  });
-};
-goToSlide(0);
-goToSlide(curSlide);
-
 const nextSlide = function () {
   if (curSlide === maxSlide - 1) {
     curSlide = 0;
@@ -220,6 +225,7 @@ const nextSlide = function () {
     curSlide++;
   }
   goToSlide(curSlide);
+  activateDots(curSlide);
 };
 const prevSlide = function () {
   if (curSlide === 0) {
@@ -228,6 +234,7 @@ const prevSlide = function () {
     curSlide--;
   }
   goToSlide(curSlide);
+  activateDots(curSlide);
 };
 btnRight.addEventListener('click', nextSlide);
 btnLeft.addEventListener('click', prevSlide);
